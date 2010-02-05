@@ -1,0 +1,24 @@
+<form name='loginForm' id="login-form"  method="POST"  action="index.php?go=login_submit">
+<div class="login-wrap">
+    <div id="message-zone" class="message-wrap" style="display:none;"></div>
+    <div class="field-wrap">
+        <label>Username</label>
+        <input type="text" id="username" name="username" tabindex="0" value="" >
+        
+    </div>
+    
+    <div class="field-wrap">
+        <label>Password</label>
+        <input type="password" id="password" name="password" value="" >
+    </div>
+    <?php echo "<b ><span style=\"color:red\">$gMessage</span></b>"?>
+    <div class="submit-wrap">
+        <input type="submit" value="Login" name="login"">
+    </div>
+    
+    <div class="field-wrap">
+        <a href="index.php?go=new_account">Create new Account</a> <br/>
+        <a href="index.php?go=reset_password"><span class="user-forgot-pass">Forgot Password</span></a>
+    </div>
+</div>
+</form>

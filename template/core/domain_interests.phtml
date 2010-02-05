@@ -1,0 +1,38 @@
+
+<div id="right-container">
+<table class="analyzer-table">
+<tr><th>Domain Categories</th><th>Domains</th> </tr>
+<tr>
+	<td>
+		<select id="category-list"  size="25" onchange="DomainInterestsModuleHandler.getValue()" >
+		</select>
+		<br/>
+		<span>New Category Name :</span> <br/>
+		<form action="javascript:DomainInterestsModuleHandler.addItem();" style="display:inline">
+		<input id="new-category" type="text" class="analyzer-text" /> 
+		<br/>
+		<input id="add-button" class="analyzer-button" type="submit" value="Add" />
+		</form>
+		<input id="remove-button" class="analyzer-button" type="button" value="Remove" onclick="DomainInterestsModuleHandler.removeItem();"/>
+	</td>
+	<td>
+		<form action="javascript:DomainInterestsModuleHandler.updateValue()" style="display:inline" >
+		<textarea id="category-value" rows="26" cols="40">
+		</textarea>
+	<br/>
+	<input class="analyzer-button" type="submit" value="Modify Domain List"/>
+	</form>
+	</td>
+</tr>
+</table>
+</div>
+
+<script type="text/javascript" src="template/js/ModuleHandler.js"></script>
+<script >
+
+var DomainInterestsModuleHandler = new ModuleHandler('Domain_Interests','#category-list','#new-category','#category-value');
+gTransactoinManager.registerModuleHandler('Domain_Interests',DomainInterestsModuleHandler);
+function initModule() {
+	gTransactoinManager.process('get','Domain_Interests');
+}
+</script>

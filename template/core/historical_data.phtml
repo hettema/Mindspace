@@ -1,0 +1,149 @@
+<?php 
+$analyzer = new DomainAnalyzer();
+$group = isset($_GET['group']) ?  $_GET['group'] : '';
+$category = isset($_GET['category']) ?  $_GET['category'] : '';
+
+if ( $group != ''&& $category != '') {
+	$analyzer->analyze($group,$category);
+	
+}
+$analyzerResult = $analyzer->result;
+
+?>
+
+<div id="right-container" >
+<div style="padding: 4px; margin-top: 4px;" class="ui-state-default ui-corner-all">
+<form method="get" action="index.php" >
+<input name="go" type="hidden" value="historical_data" />
+Keyword Group: <select name="group" id="group-list" onchange="changeGroup()">
+<?php 
+$selectInfo['userId'] = $gSession->userInfo['userId'];
+$res = $gDBHelper->selectInfo($selectInfo,'keyword_group');
+for ($idx=0; $idx < count($res); $idx++) {
+	$grp = $res[$idx]['groupName'];
+	$selected = "";
+	if ($grp == $group) {
+		$selected = 'selected="selected"';
+	}
+	echo '<option  '.$selected.'  value="'.$grp.'">'. $grp.'</option>';
+}
+?>
+</select>
+Domain Category : <select name="category" id="category-list" >
+<?php 
+$selectInfo['userId'] = $gSession->userInfo['userId'];
+$res = $gDBHelper->selectInfo($selectInfo,'domain_interests');
+for ($idx=0; $idx < count($res); $idx++) {
+	$cat = $res[$idx]['categoryName'];
+	$selected = "";
+	if ($cat == $category) {
+		$selected = 'selected="selected"';
+	}
+	echo '<option '.$selected.' value="'.$cat.'">'. $cat.'</option>';
+}
+?>
+</select>
+
+<input type="submit" value="Get Data" class="analyzer-button"/>
+
+</form>
+
+<?php if ($analyzerResult->success) {?>
+<script type="text/javascript" src="template/js/HistoricalData.js"></script>
+<table class="analyzer-table" border="0" style="border:0px;margin-top:10px;width:100%">
+<tr>
+<td align="center" style="border:0px;background:white;color:black;width:3px;valign:center">
+	<div style="margin-top:100px;border:0px;background:white;color:black;width:3px;valign:center">O c c u r a n c e <br/><br/> c o u n t</div>
+</td>
+<td style="border:0px;background:white" align="center">
+	<div id="placeholder" style="width:900px;height:450px;"></div>
+
+</td>
+<td style="border:0px;background:#1E3C64;color:white">
+View: <select id="serp-category" onchange="changeGraph();" style="margin-bottom:6px" >
+<option value="0">Monsters</option>
+<option value="1">Dominators</option>
+<option value="2">Players</option>
+<option value="3">Participants</option>
+</select>
+
+<div id="choices" style="display:inline;"></div>
+<div id="timeVals" style="margin-top:15px;color:#CCCCCC"></div>
+<i><span style="font-weight:normal;color:#999999; font-size:8pt">Use Slider to select time frame</span>
+</i>
+</td></tr>
+<tr style="background:#1E3C64;color:white">
+<td style="border:0px;" colspan="3"><div id="slider-range" stlye="width:500px"></div>
+</td></tr></table></div>
+<?php } else {?>
+</div>
+<span id="placeholder" style="margin-top:8px;width:900px;height:50px;"></span>
+<?php }?>
+
+</div>	
+
+
+<script id="source" language="javascript" type="text/javascript">
+var gDataSet =  {
+		success:true,
+		message:"Success",
+		timestamps:[1167692400000,1167778800000,1167865200000],
+		engines:['search.yahoo.com','www.google.com','www.google.com'],
+		domainInfo: [{domainName:"www.google.com",
+			occurances:[[2,3,9,6],[3,1,8,5],[4,6,8,2]]
+		},
+		{domainName:"www.yahoo.com",
+			occurances:[[7,3,2,6],[3,4,5,9],[3,5,2,7]]
+		},
+		{domainName:"www.yaho2o.com",
+			occurances:[[2,3,2,6],[3,6,3,9],[3,5,2,7]]
+		},
+		{domainName:"www.shopon.in",
+			occurances:[[5,4,5,6],[3,8,5,4],[2,2,6,9]]
+		}]
+};
+
+<?php 
+echo "gDataSet =". json_encode($analyzerResult).";"
+?>
+
+var dataSetProcessed = null;
+var choiceContainer = null;
+var gLowerTimeVal = 0;
+var gUpperTimeVal = 0;
+function initModule() {
+	if (gDataSet.success <= 0 ) {
+		$("#placeholder").html(gDataSet.message);
+		
+		return;
+	}
+	if (gDataSet.timestamps.length <= 0 ) {
+		return;
+	}
+	gLowerTimeVal = gDataSet.timestamps[0];
+	gUpperTimeVal = gDataSet.timestamps[gDataSet.timestamps.length-1];
+	$("#slider-range").slider({
+		range: true,
+		min: gLowerTimeVal ,
+		max: gUpperTimeVal,
+		values: [gLowerTimeVal, gUpperTimeVal],
+		change:function(event,ui) {
+			gLowerTimeVal = ui.values[0];
+			gUpperTimeVal = ui.values[1];
+			changeGraph();
+		}
+	});
+
+	
+
+	choiceContainer = $("#choices");
+
+	$(window).resize(function(){
+		plotAccordingToChoices();
+	    
+  	});
+	dataSetProcessed = createDataSet(gDataSet,parseInt($("#serp-category").val()));
+	initChart(dataSetProcessed);
+  	changeGraph();    
+}
+</script>

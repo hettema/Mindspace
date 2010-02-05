@@ -1,0 +1,33 @@
+<form name="newAccountForm" id="new-account-form"  method="POST"  action="index.php?go=new_account_submit" >
+<div class="new-account-wrap">
+    <div id="message-zone" class="message-wrap" style="display:none;"></div>
+    <div class="field-wrap">
+        <label>Firstname</label>
+        <input type="text" id="user-firstname" name="firstname" tabindex="0" value="" >
+    </div>
+    <div class="field-wrap">
+        <label>Lastname</label>
+        <input type="text" id="user-lastname" name="lastname" tabindex="0" value="" >
+    </div>
+    <div class="field-wrap">
+        <label>Email</label>
+        <input type="text" id="user-username" name="username" tabindex="0" value="" >
+    </div>
+    <div class="field-wrap">
+        <label>Password</label>
+        <input type="password" id="user-password" name="password" value="" >
+    </div>
+    <div class="field-wrap">
+        <label>Confirm Password</label>
+        <input type="password" id="user-confirm-password" name="c-password"  >
+    </div>
+    <div class="submit-wrap">
+        <input type="submit" value="Create" name="user-cteate" onclick="return userAccount.newAccountSubmit()">
+    </div>
+
+    <div class="field-wrap">
+        <a href="index.php?go=login"><span class="login-link">I already have an account</span></a> <br/>
+        <a href="index.php?go=reset_password"><span class="forgot-pass">Forgot Password</span></a>
+    </div>
+</div>
+</form>

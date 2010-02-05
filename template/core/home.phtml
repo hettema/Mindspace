@@ -1,0 +1,28 @@
+<div id="right-container">
+<h1>Hi <?php echo $gUser['firstName']. " !!!";?></h1>
+<div id="accordion" style="width:400px">
+			<div>
+				<h3><a href="#">Recent Activity</a></h3>
+				<div>Searches made perday</div>
+			</div>
+			<div>
+				<h3><a href="#">Recently Added Keywords</a></h3>
+				<div>List of top X number of keywords that the user is interested in</div>
+			</div>
+			<div>
+				<h3><a href="#"> My Scheduled Searches </a></h3>
+				<div>Possible enhancement to provide a list of searches to be done automatically at a specific time - 
+				weekly monthly or daily.</div>
+			</div>
+
+			<div>
+				<h3><a href="#"> Recently added Domains </a></h3>
+				<div>The domains that the user is monstly  interested  and can show the Alexa rank of these domains.</div>
+			</div>
+		</div>
+
+</div>
+
+<script>
+$("#accordion").accordion({ header: "h3" });
+</script>

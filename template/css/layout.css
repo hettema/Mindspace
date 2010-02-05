@@ -1,0 +1,105 @@
+/*global styles*/
+
+BODY { font-family:Arial,Helvetica,"Lucida Sans";font-size:11px; }
+A { text-decoration: none;}
+A:hover { text-decoration: underline;color:#307690; }
+IMG { border: 0; }
+INPUT[type="text"],SELECT,TEXTAREA { padding: 2px; border: 1px solid #CCCCCC;font-size:12px; }
+INPUT[type="text"]:focus,
+SELECT:focus,
+TEXTAREA:focus { background-color: #FFFFCC; }
+
+INPUT,SELECT { font-size: 1em; }
+SELECT { padding: 1px 1px; }
+TD { vertical-align:top; }
+
+/*body layout wrapper*/
+.wrapper {  margin:0 auto;width: 1004px; }
+/*content area*/
+.content-wrap { width:100%;height:100%; }
+.banner-wrap {  border-top: 7px solid #659cef;background-color:#2956b2;height:80px;border-bottom:7px solid #A5D14F;vertical-align:middle; }
+.banner-wrap .logo { float:left;font-size:3em;font-weight:bold;color:white; }
+.banner-wrap .sub-headding { float:right;font-size:1em;font-weight:bold;color:white;padding-top:40px;padding-right:10px; }
+.banner-wrap .logout-link { float:right;font-size:1em;color:yellow;padding:2px 10px;margin-right:10px;text-decoration:underline;cursor:pointer; }
+.logo { float: left;padding: 6px; }
+.col-left-wrap { width:200px;padding-top: 4px;border-right:1px solid #DDDDDD; }
+.content-main { margin-left:230px;padding: 10px;  }
+.message-wrap { background-color:#EFDFCF;font-size:11px;padding:3px 10px;margin:0 0 4px;color:#6A8E57;border:1px solid #DAAEA7; }
+.message-wrap .message { padding:4px;text-align:center; }
+
+.loading-indicator { position:absolute;right:14px;top:48px; width:20px;height:20px; background:transparent url(../images/ajax-loader.gif) no-repeat center;border:0px solid #6578AC; }
+.loading-indicator-green { width:100%;height:20px; background:transparent url(../images/ajax-loader-green.gif) no-repeat center; }
+/** Search wrap *********************/
+.search_wrap { height:40px;background:#F2F2F2;border-bottom:2px solid #EEEEEE;font-size:1.4em;  }
+.search_wrap .search-box { width:80%;padding:6px; margin:10px auto;border:1px solid #E7E7E7;background:#FFFFFF; }
+.search_wrap .search-box h3{ display:inline; }
+.search_wrap .search-input { width:76%; margin:0 4px;border:1px solid #999999;background:#FFFFFF;font-size:1.1em;}
+/********************* Application Tab Bar Styles **************************/
+.tab_bar { clear:right; }
+.tab_bar UL { list-style: none;margin-left:0px; }
+.tab_bar UL LI   { margin-left:2px;margin-bottom:2px;padding:8px;font-size:1em;font-weight:normal;text-decoration: none;background-color: #7dbd00; }
+.tab_bar UL LI A { color:#777777;text-decoration: none; }
+.tab_bar UL LI:hover { background:black;font-weight:bold; }
+.tab_bar UL LI A:hover { color: #305691; }
+.tab_bar LI.tab_active { background-color: #a5d14f; }
+.tab_bar LI.tab_active A { color:#FFFFFF }
+.tab_line { clear: both; width: 100%; height: 5px; line-height: 5px; background: #a5d14f; }
+
+/************************** Search Filters - Styles *******************************/
+.filters { margin: 5px 0; }
+.filters .filter-wrap { padding:6px 2px; }
+.filters .label { font-weight:bold;width:80px;font-size:1em; }
+.filters .input-wrap { display:inline;font-weight:normal; }
+.filters .filter-button-wrap { float:right;margin:6px 10px;font-size:1.2em; }
+/************Form fields **************/
+.field-wrap { clear:both;margin:6px 4px; padding:2px;} 
+.field-wrap LABEL { margin-right: 6px; }
+.field-wrap INPUT[type="text"],
+.field-wrap INPUT[type="password"] { padding:1px; width:120px; height:15px; font-family:Tahoma, sans, Helvetica;border:1px solid #666666;  }
+.field-wrap .submit-wrap { width:60px;margin:auto;}
+
+/*****************************LOGIN ***************/
+.login-wrap { width:252px;margin:50px auto auto; padding:20px 10px;border:1px solid #999999;background:#EFEFFE; }
+.login-wrap .message-wrap { font-weight:bold;color:#ED3410;background:#F8E4E2 ;border:1px solid #AAA;width:92%;margin:10px auto;padding:3px 2px;font-size:10px; }
+.login-wrap .field-wrap { clear:both;margin:6px 4px; padding:2px;} 
+.login-wrap .field-wrap LABEL { margin-right: 6px; }
+.login-wrap INPUT[type="text"],
+.login-wrap INPUT[type="password"] { padding-left:20px; width:120px; height:15px; font-family:Tahoma, sans, Helvetica;border:1px solid #666666;  }
+.login-wrap INPUT[type="text"] { background:white url(../images/user.gif) left no-repeat; }
+.login-wrap INPUT[type="password"] { height:18px;width:122px;  background:white url(../images/authen.gif) left no-repeat; }
+.login-wrap .submit-wrap { width:60px;margin:auto;}
+
+/*********User new account -**********/
+.new-account-wrap {width:300px;border:1px solid #CCC; padding:20px;  margin:30px auto; background:#EFEFFE;}
+.new-account-wrap .field-wrap LABEL { display:block; font-weight:bold; }
+/********************************* Page Footer Styles *******************************/
+/*footer*/
+.footer_wrap { clear: both; float: left; margin-top: 5px; width: 100%;border-top:1px solid #DDDDDD; }
+.footer { padding: 15px; text-align: center; color: #A0A0A4; }
+.footer  A:hover { color: #666666; text-decoration: underline; }
+
+/*************************** Style Classes defined for convinience********************/
+.left { float: left; }
+.right { float: right; }
+.bold { font-weight: bold; }
+.border_none { border: none; }
+.shorter { width: 40px; }
+.short { width: 90px; }
+.normal { width: 120px; }
+.long { width: 160px; }
+.longer { width: 220px; }
+.longest { width: 260px; }
+
+
+/* ---- Uncommented ---*/
+.input-view { padding: 10px 5px;background: transparent;voice-family: "\"}\"";voice-family: inherit;color: #666666; }
+.input-view FORM { /*height:302px;*/ }
+.input-view FORM DIV{ float: left;margin-bottom: 2px;/*clear:both;*/ }
+.wrap { float: left; padding: 3px 0;clear: both;width: 100%;border-bottom: 1px dashed #DFDFDF; }
+.input-view FORM DIV INPUT,.input-view FORM DIV TEXTAREA,.input-view FORM DIV SELECT,.wrap INPUT[type="text"],.wrap TEXTAREA,.wrap SELECT
+    { float: left; color: #333333; }
+
+/*added extra */
+.mandatory { color: orange;padding-left: 6px; }
+.edit A { color: #2956b2; text-decoration: underline;font-weight: bold;margin-left: 30px; }
+.edit  A:hover { color: #0066FF; }

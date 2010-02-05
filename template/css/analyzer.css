@@ -1,0 +1,143 @@
+#hd {
+    background-image: url(../images/sprite4.png);
+    background-position: 0 0px;
+    color: #fff;
+    border: 0px solid #CDCDCD;
+    padding: 5px;
+    padding-left:30px;
+}
+#hd h1 {
+    font-size: 126%;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+#ft {
+    font-size: 85%;
+    font-style: italic;
+}
+
+body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+			
+
+.menu-container {
+border-width:0;
+margin-right:0px!important;
+background:rgb(200,217,245);
+min-height:550px;
+}
+
+.menu-box {
+border-width:0;
+margin-right:0px!important;
+margin-top:120px;
+font-size:12pt;
+}
+
+td #group-list {
+	min-width:220px;
+	width:220px;
+}
+td #category-list {
+	min-width:220px;
+	width:220px;
+}
+
+.result-table {
+font-weight:normal;
+}
+.menu-item {
+list-style:none;
+background:rgb(180,200,245);
+margin-top:2px;
+height:35px;
+}
+.navigation-pane {
+	
+	background:#999999;
+}
+
+.main-content {
+padding-top:10px;
+padding-left:10px;
+margin-left:180px !important;
+
+}
+
+
+ul li.menu-item a:hover {
+background:rgb(152,190,230) none repeat scroll 0 0;
+color:#000000;
+}
+ul li.menu-item a {
+display:block;
+font-weight:bold;
+padding:8px 2px 8px 10px;
+text-decoration:none;
+color:#333333;
+}
+
+ul li.menu-item.selected a{
+	color:#FFFFFF;
+	font-weight:bold;
+
+}
+
+ul li.menu-item.selected {
+	background:rgb(85,142,213) none repeat scroll 0 0;
+	font-weight:bold;
+	padding:0;
+}
+
+#pageTabs {
+margin-top:10px;
+font-size:0.9em;
+}
+
+.analyzer-table {
+border:1px;
+}
+
+
+.analyzer-table th {
+color:#FFFFFF;
+background:rgb(30,60,100);
+}
+
+
+#right-container{
+color:#FFFFFF;
+font-weight:bold;
+margin-top:2px;
+margin-right:8px;
+min-height:550px;
+margin-bottom:2px;
+min-width:500px;
+}
+
+#right-container span{
+color:#FFFFFF;
+font-weight:bold;
+margin-top:2px;
+margin-bottom:2px;
+overflow:auto;
+}
+.analyzer-table select {
+width:100px
+}
+.analyzer-text {
+margin-top:2px;
+width:210px;
+}
+.analyzer-button {
+	color:#FFFFFF;
+	margin-top:5px;
+	background:rgb(30,60,100);
+	border:1px solid; 
+	min-width:60px;
+	cursor:pointer;
+	border-color: #111111; 
+}
+
+.analyzer-button:hover {
+	background:rgb(10,20,100);
+}

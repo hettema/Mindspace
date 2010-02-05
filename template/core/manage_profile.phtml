@@ -1,0 +1,25 @@
+<div id="right-container" >
+
+<form method="POST" action="index.php?go=profile_change_submit" >
+<table class="analyzer-table">
+<tr><th colspan="2">Change Profile Information</th> </tr>
+<tr>
+	<td>First Name </td><td> <input name="firstname" type="text"  value="<?php echo $gUser['firstName'];?>" />	</td>
+</tr>
+<tr>
+	<td>Last Name</td><td> <input name="lastname" type="text" value="<?php echo $gUser['lastName'];?>" />	</td>
+</tr>
+<tr>
+	<td>New Password </td><td> <input name="password" type="password"  />	</td>
+</tr>
+<tr>
+	<td>Confirm New Password  </td><td> <input name="c-password" type="password" />	</td>
+</tr>
+<tr>
+	<td colspan="2" align="right"> <input class="analyzer-button" type="submit" value="Update" />	</td>
+</tr>
+
+</table>
+</form>
+<?php echo $gMessage;?>
+</div>

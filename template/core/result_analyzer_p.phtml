@@ -1,0 +1,175 @@
+<div id="right-container">
+<?php 
+$group = isset($_GET["group"]) ? $_GET['group'] : "";
+$engine = isset($_GET["engine"]) ? $_GET['engine'] : "searh.yahoo.com";
+
+/**
+ * The SERP Result Analyzer
+ * @var ResultAnalyzer
+ */
+
+$analyzer = new SERPAnalyzer();
+
+$selectInput = "";
+$selectResult = "";
+
+if ($group != ""){
+	
+	
+	$aryParams = getKeywords($group);
+	
+	$currTime = time() ;
+	$tm = $currTime - ($currTime % SAMPLING_INTERVAL);
+	
+	for ($idx = 0; $idx < count($aryParams); $idx++) {
+		$param = $aryParams[$idx];
+		if ($param == "") {
+			continue;
+		}
+		$serpInfo = array();
+		$serpInfo['engineId'] = $engine;
+		$serpInfo['keyword'] = $param;
+		$serpInfo['timestamp'] = $tm;
+		
+		$res = $gDBHelper->selectInfo($serpInfo,'search_results');
+		
+		$keywords = "";
+		if ($res[0]['SERP']) {
+				$analyzer->addSERP(json_decode($res[0]['SERP']));
+		} else {
+			if ($param == 'testXYZ**') {
+				$searchResults = getTestResults();
+			}
+			$param = urlencode($param);
+			if(strpos($engine,"google") != false) {
+				$searchResults = getGoogleResuls($param,$engine);
+				$analyzer->addSERP($searchResults);
+				
+			} else if  ($engine == "searh.yahoo.com") {
+				$searchResults = getBOSSResults($param);
+				$analyzer->addSERP($searchResults);
+			} 
+			$serpInfo['SERP'] = json_encode($searchResults);
+			
+			//print_r($serpInfo);
+			$gDBHelper->insertInfo($serpInfo,'search_results');
+		}
+		
+		
+	}
+	$insertInfo = array();
+	$insertInfo['userId'] = $gSession->userInfo['userId'];
+	$insertInfo['groupName'] = $group;
+	$insertInfo['engineId'] = $engine;
+	$insertInfo['timestamp'] = $currTime;
+	$gDBHelper->insertInfo($insertInfo,'search_info');
+} 
+
+
+/**
+ * Display the category information in a tabular form.
+ * @param $category SERPCategory 
+ * @return void
+ */
+function displayResults($category) {
+	echo '<h3>Domain List</h3><table class="result-table" cellspacing="0" width="100%" border="1px" cellpadding ="3" >';
+	$domains = $category->domainList;
+	$count = count($domains);
+	for ($idx = 0; $idx < $count; $idx++) {
+		$color = "#EDF5FF";
+		if ($idx % 2 ==1) {
+			$color = "white";
+		}
+		echo "<tr style=\"background:".$color.";\"><td>$idx</td><td>".$domains[$idx]->count."</td><td ><a href=\"http://".$domains[$idx]->name."\" >".$domains[$idx]->name."</a></td></tr>\n";
+	}
+	echo "</table>";
+	echo '<h3>URL List</h3><table class="result-table" cellspacing="0" width="100%" border="1px" cellpadding ="3" >';
+	$domains = $category->pageList;
+	$count = count($domains);
+	for ($idx = 0; $idx < $count; $idx++) {
+		$color = "#EDF5FF";
+		if ($idx % 2 ==1) {
+			$color = "white";
+		}
+		echo "<tr style=\"background:".$color.";\"><td>$idx</td><td>".$domains[$idx]->count."</td><td ><a href=\"".$domains[$idx]->name."\" >".$domains[$idx]->name."</a></td></tr>\n";
+	}
+	echo "</table>";
+}
+?>
+<div style="padding: 4px; " class="ui-state-default ui-corner-all">
+<form action="index.php?go=result_analyzer" method="post">
+<input type="hidden" name="go" value="result_analyzer" />
+Select Group: <select id="group-list" name="group" >
+<?php 
+$selectInfo = array();
+$selectInfo['userId'] = $gSession->userInfo['userId'];
+$res = $gDBHelper->selectInfo($selectInfo,'keyword_group');
+for ($idx=0; $idx < count($res); $idx++) {
+	$grp = $res[$idx]['groupName'];
+	echo '<option value="'.$grp.'">'. $grp.'</option>';
+}
+?>
+</select>
+Select Engine : <select  id="engine-list" name="engine">
+	<option value="searh.yahoo.com">Yahoo!</option>
+	<option value="www.google.com">www.google.com</option>
+	<option value="www.google.au">www.google.au</option>
+	<option value="www.google.ca">www.google.ca</option>
+	<option value="www.google.cz">www.google.cz</option>
+	<option value="www.google.de">www.google.de</option>
+	<option value="www.google.dk">www.google.dk</option>
+	<option value="www.google.es">www.google.es</option>
+	<option value="www.google.fr">www.google.fr</option>
+	<option value="www.google.co.uk">www.google.co.uk</option>
+	<option value="www.google.co.in">www.google.co.in</option>
+	<option value="www.google.gr">www.google.gr</option>
+	<option value="www.google.hr">www.google.hr</option>
+	<option value="www.google.nl">www.google.nl</option>
+	<option value="www.google.pl">www.google.pl</option>
+	<option value="www.google.pt">www.google.pt</option>
+	<option value="www.google.ru">www.google.ru</option>
+	<option value="www.google.se">www.google.se</option>
+	<option value="www.google.si">www.google.si</option>
+	<option value="www.google.sk">www.google.sk</option>
+</select>
+<input class="analyzer-button" value="Analyze" type="submit" />
+
+</form>
+
+
+<?php if ($analyzer->resultsLoaded) {?>
+<div id="pageTabs" >
+	<ul >
+		<li><a href="#tab1"><em>Top 3 Monsters</em></a></li>
+		<li><a href="#tab2"><em>Top 10 Dominators</em></a></li>
+		<li><a href="#tab3"><em>Top 20 Players</em></a></li>
+		<li><a href="#tab4"><em>Top 100 Participants</em></a></li>	
+	
+	</ul>
+	<?php
+} 
+if ($analyzer->resultsLoaded) {
+	
+	$analyzer->sortResult();
+	echo '<div id="tab1"><p>';
+	displayResults($analyzer->monsters);
+	echo '</p></div><div id="tab2"><p>';
+	displayResults($analyzer->dominators);
+	echo '</p></div><div id="tab3"><p>';
+	displayResults($analyzer->players);
+	echo '</p></div><div id="tab4"><p>';
+	displayResults($analyzer->participants);
+	echo '</p></div></div>';
+}
+?>
+
+
+</div>
+</div>
+<script>
+function initModule() {
+$(function() {
+	$("#pageTabs").tabs();
+});
+}
+</script>

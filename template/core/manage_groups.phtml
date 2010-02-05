@@ -1,0 +1,39 @@
+<div id="right-container">
+
+<table class="analyzer-table">
+<tr><th>Existing Groups</th><th>Group Keywords</th> </tr>
+<tr>
+	<td>
+		<select id="group-list"  size="25" onchange="KeywordGroupModuleHandler.getValue()" >
+		</select>
+		<br/>
+		<span>New Group Name :</span> <br/>
+		<form action="javascript:KeywordGroupModuleHandler.addItem();" style="display:inline">
+		<input id="new-group" type="text" class="analyzer-text" /> 
+		<br/>
+		<input id="add-button" class="analyzer-button" type="submit" value="Add" />
+		</form>
+		<input id="remove-button" class="analyzer-button" type="button" value="Remove" onclick="KeywordGroupModuleHandler.removeItem();"/>
+	</td>
+	<td>
+		<form action="javascript:KeywordGroupModuleHandler.updateValue()" style="display:inline" >
+		<textarea id="group-value" rows="26" cols="40">
+		</textarea>
+	<br/>
+	<input class="analyzer-button" type="submit" value="Modify Group"/>
+	</form>
+	</td>
+</tr>
+</table>
+</div>
+
+<script type="text/javascript" src="template/js/ModuleHandler.js"></script>
+<script >
+
+var KeywordGroupModuleHandler = new ModuleHandler('Keyword_Group','#group-list','#new-group','#group-value');
+gTransactoinManager.registerModuleHandler('Keyword_Group',KeywordGroupModuleHandler);
+function initModule() {
+	gTransactoinManager.process('get','Keyword_Group');
+}
+
+</script>
