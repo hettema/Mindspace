@@ -1,0 +1,1 @@
+this folder is required for storing temporary session files, the permission of this folder needs to be changed to writable
