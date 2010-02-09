@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2009, 2010 hette.ma.
- * 
+ *
  * This file is part of Mindspace.
  * Mindspace is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -10,11 +10,11 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
  * License for more details.You should have received a copy of the GNU General Public License
  * along with Mindspace. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *  credits
  * ----------
  * Idea by: Garrett French |    http://ontolo.com    |     garrett <dot> french [at] ontolo (dot) com
- * Code by: Eldhose C G | http://ceegees.in  | eldhose (at) ceegees [dot] in
+ * Code by: Alias Eldhose| http://ceegees.in  | eldhose (at) ceegees [dot] in
  * Initiated by: Dennis Hettema    |    http://hette.ma    |     hettema (at) gmail [dot] com
  */
 
@@ -22,7 +22,7 @@
 /**
  * The Route configuration, creates a configutation list of action_id to page map.
  * also indicates whether signing in is required for performing an action.
- * 
+ *
  * @author Neo
  *
  */
@@ -87,7 +87,7 @@ class MenuItem {
 }
 /*
  * Initializing the Menu
- * 
+ *
  */
 $gMenuItems = array();
 $gMenuItems[] = new MenuItem("home","Home");

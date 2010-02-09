@@ -13,7 +13,7 @@
  *  credits
  * ----------
  * Idea by: Garrett French |    http://ontolo.com    |     garrett <dot> french [at] ontolo (dot) com
- * Code by: Eldhose C G | http://ceegees.in  | eldhose (at) ceegees [dot] in
+ * Code by: Alias Eldhose| http://ceegees.in  | eldhose (at) ceegees [dot] in
  * Initiated by: Dennis Hettema    |    http://hette.ma    |     hettema (at) gmail [dot] com
  */
 

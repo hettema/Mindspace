@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
  * Copyright 2009, 2010 hette.ma.
- * 
+ *
  * This file is part of Mindspace.
  * Mindspace is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -10,11 +10,11 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
  * License for more details.You should have received a copy of the GNU General Public License
  * along with Mindspace. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *  credits
  * ----------
  * Idea by: Garrett French |    http://ontolo.com    |     garrett <dot> french [at] ontolo (dot) com
- * Code by: Eldhose C G | http://ceegees.in  | eldhose (at) ceegees [dot] in
+ * Code by: Alias Eldhose| http://ceegees.in  | eldhose (at) ceegees [dot] in
  * Initiated by: Dennis Hettema    |    http://hette.ma    |     hettema (at) gmail [dot] com
  */
 
@@ -24,7 +24,7 @@ function __autoload($class)
     if (strpos($class, '/')!==false) {
         return;
     }
-   
+
     $module = "core";
     if (strpos($class,"User") !== false && strpos($class,"User") == 0) {
     	$module = "user";
@@ -49,14 +49,14 @@ function getKeywords($group) {
 	$keywords = array();
 	if ($res[0]['keywords']) {
 		$keywords = explode("\n",$res[0]['keywords']);
-		
+
 	}
-	return $keywords; 
+	return $keywords;
 }
 /**
  * Function to get the Search results from Yahoo! BOSS API
  * @param {String} query the search query
- */ 
+ */
 function getBOSSResults(/*String*/$query) {
 	$apikey = "SzEok7bV34F6oYZ.yODcfEltgfc.qcslpBvzljQh0cPW4K9D_aJXo3zIEakg.HTy7q7VqI3l";
 	$searchResults = array();
@@ -89,8 +89,8 @@ function getBOSSResults(/*String*/$query) {
  * We are doing  screen scraping of the SERP
  * @param {String}query The search query.
  * @param {String} engine The search engine.{www.google.com,www.google.de, etc.}
- * 
- */ 
+ *
+ */
 
 function getGoogleResuls(/*String*/$query,/*String*/$engine){
 	$url = "http://".$engine."/search?as_q=".urlencode($query)."&num=100&ft=i&as_qdr=all&as_occt=any&safe=images";
@@ -114,7 +114,7 @@ function getGoogleResuls(/*String*/$query,/*String*/$engine){
 
 /**
  * Dummy SERP to test the application without hitting web services.
- * 
+ *
  */
 function getTestResults() {
 	return  array(

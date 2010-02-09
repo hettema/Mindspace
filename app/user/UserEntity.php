@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2009, 2010 hette.ma.
- * 
+ *
  * This file is part of Mindspace.
  * Mindspace is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -10,11 +10,11 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
  * License for more details.You should have received a copy of the GNU General Public License
  * along with Mindspace. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *  credits
  * ----------
  * Idea by: Garrett French |    http://ontolo.com    |     garrett <dot> french [at] ontolo (dot) com
- * Code by: Eldhose C G | http://ceegees.in  | eldhose (at) ceegees [dot] in
+ * Code by: Alias Eldhose| http://ceegees.in  | eldhose (at) ceegees [dot] in
  * Initiated by: Dennis Hettema    |    http://hette.ma    |     hettema (at) gmail [dot] com
  */
 
@@ -85,23 +85,23 @@ Class UserEntity
     	$createInfo['userName'] = $_POST['username'];
     	$createInfo['password'] = $_POST['password'];
     	$createInfo['cpassword'] = $_POST['c-password'];
-  
+
         $createInfo['firstName'] = $_POST['firstname'];
         $createInfo['lastName'] = $_POST['lastname'];
         $createInfo['email'] = !empty($_POST['email']) ? $_POST['email'] : strstr($_POST['username'], '@') ? $_POST['username'] : '' ;
 
 		global $gMessage;
-		
+
 		if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/",
 			$createInfo['email'])){
 			$gMessage = "Invalid email</center>";
 			return;
-		} 
+		}
         if ($createInfo['password'] != $createInfo['cpassword']) {
         	$gMessage = "Password mismatch";
         	return;
         }
-        
+
         if($this->checkExistingUserName($createInfo['userName'])) {
            	$gMessage =  'The username you have specified is already registerd. Please try another username';
             return false;
@@ -114,7 +114,7 @@ Class UserEntity
         $gDBHelper->insertInfo($createInfo,$this->user_table);
         $gMessage  = "Account successfully created";
         //$this->login($username, $password);
-        $this->sendNewAccountEmail($createInfo['firstName'], 
+        $this->sendNewAccountEmail($createInfo['firstName'],
         	$createInfo['email'],$createInfo['password']);
     }
 
@@ -174,7 +174,7 @@ Class UserEntity
     private function sendNewAccountEmail($name,$email, $password)
     {
     	$this->sendMail($email,"New Account","Hi $name,  \n please login to the account with username:$email pass: $password");
-    	
+
     }
 
     private function sendNewPasswordEmail($email,$password)

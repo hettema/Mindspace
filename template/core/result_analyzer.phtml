@@ -20,6 +20,7 @@ for ($idx=0; $idx < count($res); $idx++) {
 	}
 	echo '<option '.$selected.' value="'.$grp.'">'. $grp.'</option>';
 }
+
 ?>
 </select>
 Select Engine : <select  id="engine-list" name="engine">
@@ -60,7 +61,22 @@ Select Engine : <select  id="engine-list" name="engine">
 	<div id="tab3"></div>
 	<div id="tab4"></div>
 </div>
+
+
 </div>
+<?php 
+
+$startTime = time() - (  24* 60 * 60);
+$query = "SELECT count(*) from search_info where ".
+		"user_id =".$gSession->userInfo['userId']." AND ".
+		"timestamp > ".$startTime;
+//echo $query;
+$res = $gDBHelper->queryDb($query);
+if ($res[0]["count(*)"] > 100 ) {
+	$group = "";
+	echo "<b>You have exceeeded the maximum number of searches per day </b>";
+}
+?>
 </div>
 
 

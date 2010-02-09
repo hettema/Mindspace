@@ -3,7 +3,21 @@
 <div id="accordion" style="width:400px">
 			<div>
 				<h3><a href="#">Recent Activity</a></h3>
-				<div>Searches made perday</div>
+				<div>
+				<?php 
+
+$startTime = time() - (  24* 60 * 60);
+$query = "SELECT count(*) from search_info where ".
+		"user_id =".$gSession->userInfo['userId'];
+//echo $query;
+$res = $gDBHelper->queryDb($query);
+$query .=" AND timestamp > ".$startTime;
+$resPerDay = $gDBHelper->queryDb($query);
+echo "<b> Mindspace Searched today ".$resPerDay[0]['count(*)']." </b><br/>";
+echo "<b> Total Mindspace Searched  till date ". $res[0]['count(*)'] ." </b>";
+
+?>
+				</div>
 			</div>
 			<div>
 				<h3><a href="#">Recently Added Keywords</a></h3>

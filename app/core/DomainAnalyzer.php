@@ -1,7 +1,7 @@
-<?php 
+<?php
 /**
  * Copyright 2009, 2010 hette.ma.
- * 
+ *
  * This file is part of Mindspace.
  * Mindspace is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -10,17 +10,17 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
  * License for more details.You should have received a copy of the GNU General Public License
  * along with Mindspace. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *  credits
  * ----------
  * Idea by: Garrett French |    http://ontolo.com    |     garrett <dot> french [at] ontolo (dot) com
- * Code by: Eldhose C G | http://ceegees.in  | eldhose (at) ceegees [dot] in
+ * Code by: Alias Eldhose| http://ceegees.in  | eldhose (at) ceegees [dot] in
  * Initiated by: Dennis Hettema    |    http://hette.ma    |     hettema (at) gmail [dot] com
  */
 
 
 /**
- * @class This class Stored the domain name and occurance counts for search 
+ * @class This class Stored the domain name and occurance counts for search
  * categories. Monsters,Domincators,Players and Participants
  * @author Neo
  *
@@ -36,9 +36,9 @@ class DomainInfo {
 
 /**
  * @class This class aggregates the data needed for creating the data needed for drawing the graph
- *  To keep the data flow optimized we have a single array of timestamps and the engines used for 
+ *  To keep the data flow optimized we have a single array of timestamps and the engines used for
  *  making the search.
- *  
+ *
  * @author Neo
  *
  */
@@ -46,7 +46,7 @@ class DomainInfo {
 class DomainPerformanceResult extends RESTResult implements DomainFilter{
 
 	/**
-	 * 
+	 *
 	 * @var DomainInfo[]
 	 */
 	var $domainInfo;
@@ -60,7 +60,7 @@ class DomainPerformanceResult extends RESTResult implements DomainFilter{
 	 * @var array of strings
 	 */
 	var $engines;
-	
+
 	public function __construct($success,$msg) {
 		$this->timestamps = array();
 		$this->domainInfo = array();
@@ -71,10 +71,10 @@ class DomainPerformanceResult extends RESTResult implements DomainFilter{
 	 * Implementing the DomainFilter interface.
 	 */
 	public function isPresent($url) {
-		
+
 		$purl = preg_replace("/.*:\/\//","",$url);
 		$paths = preg_split("/\//",$purl,2);
-		
+
 		for ($idx = 0; $idx < count($this->domainInfo); $idx++) {
 			if ($this->domainInfo[$idx]->domainName == $paths[0]) {
 				return true;
@@ -90,7 +90,7 @@ class DomainPerformanceResult extends RESTResult implements DomainFilter{
 		for ($idx = 0; $idx < count($domainList); $idx++) {
 			$this->domainInfo[] = new DomainInfo($domainList[$idx]);
 		}
-		
+
 	}
 	/**
 	 * Aggregates the various SERPAnalyzer info over timeperiod to construct the data set.
@@ -105,20 +105,20 @@ class DomainPerformanceResult extends RESTResult implements DomainFilter{
 			$occ[] = $serpAnalyzer->dominators->getDomainCount($name);
 			$occ[] = $serpAnalyzer->players->getDomainCount($name);
 			$occ[] = $serpAnalyzer->participants->getDomainCount($name);
-			$this->domainInfo[$idx]->occurances[] = $occ;			
+			$this->domainInfo[$idx]->occurances[] = $occ;
 		}
 	}
-	
+
 }
 
 class DomainAnalyzer {
 	var $keywordList;
 	var $result;
-	
+
 	public function __construct() {
 		$this->result = new DomainPerformanceResult(false,"");
 	}
-	
+
 	private function setKeywordList($keywordList){
 		$this->keywordList = $keywordList;
 	}
@@ -126,12 +126,12 @@ class DomainAnalyzer {
 	 * Does result analysis for a particular timestamp.
 	 */
 	public function processForTimestamp($ts,$engine) {
-		
+
 		$tm = $ts - ($ts % SAMPLING_INTERVAL);
 		global $gDBHelper;
 		$resultAnalyzer = new SERPAnalyzer();
 		$resultAnalyzer->addDomainFilter($this->result);
-		
+
 		for ($idx = 0; $idx < count($this->keywordList); $idx++) {
 			$serpInfo = array();
 			$serpInfo['engineId'] = $engine;
@@ -141,20 +141,20 @@ class DomainAnalyzer {
 			$resultAnalyzer->addSERP(json_decode($res[0]['SERP']));
 		}
 		$this->result->addAnalyzerInfo($resultAnalyzer,$ts,$engine);
-		
+
 	}
 	/*
 	 * Analyze the Domain preference for a group for a keyword group
 	 */
 	function analyze($group,$category) {
 		global $gDBHelper;
-		global $gSession;	
-		
+		global $gSession;
+
 		/*
 		 * Setting keyword list.
 		 */
 		$this->setKeywordList(getKeywords($group));
-		
+
 		if (count($this->keywordList) == 0) {
 			$this->result->setResult(false,"No keywords present in particular group");
 			return;
@@ -175,7 +175,7 @@ class DomainAnalyzer {
 			return;
 		}
 		$this->result->setDomains(explode("\n",$domains));
-		
+
 		/*
 		 * getting the search info for particular group for the user.
 		 */
@@ -187,7 +187,7 @@ class DomainAnalyzer {
 			$this->processForTimestamp($res[$idx]['timestamp'], $res[$idx]['engineId']);
 		}
 		$this->result->setResult(true,"Success");
-		
+
 	}
 }
 

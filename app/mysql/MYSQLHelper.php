@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2009, 2010 hette.ma.
- * 
+ *
  * This file is part of Mindspace.
  * Mindspace is free software: you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation, either
@@ -10,11 +10,11 @@
  * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public
  * License for more details.You should have received a copy of the GNU General Public License
  * along with Mindspace. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  *  credits
  * ----------
  * Idea by: Garrett French |    http://ontolo.com    |     garrett <dot> french [at] ontolo (dot) com
- * Code by: Eldhose C G | http://ceegees.in  | eldhose (at) ceegees [dot] in
+ * Code by: Alias Eldhose| http://ceegees.in  | eldhose (at) ceegees [dot] in
  * Initiated by: Dennis Hettema    |    http://hette.ma    |     hettema (at) gmail [dot] com
  */
 
@@ -239,15 +239,15 @@ class MYSQLHelper
 
         return (! empty($n) && ! empty($arrayInfo) ? $arrayInfo : null);
     }
-    
+
     function getProperNameValues($arrayInfo,$table) {
-    	
+
     	$fieldInfo      = $this->getTableFields($table);
         $fields         = $fieldInfo["field"];
         $fieldTypes     = $fieldInfo["type"];
-        
+
         $pairs = array();
-        
+
         for ($idx = 0; $idx < count($fields); $idx++) {
             $field      = $fields[$idx];
             $fieldType 	= $fieldTypes[$idx];
@@ -285,19 +285,19 @@ class MYSQLHelper
             $pair->name = $field;
             $pair->value =  $val;
             $pairs[] = $pair;
-          
+
         }
         return $pairs;
     }
-    
+
     function selectInfo($arrayInfo,$table)
     {
     	$pairs = self::getProperNameValues($arrayInfo,$table);
     	$condition = "";
          for ($idx = 0; $idx < count($pairs); $idx++) {
         	$condition .= $pairs[$idx]->name . "=" . $pairs[$idx]->value;
-            $condition .= " AND "; 
-          
+            $condition .= " AND ";
+
         }
         $condition .= " TRUE";
     	$query = "SELECT * FROM ".$table." Where ".$condition;
@@ -333,21 +333,21 @@ class MYSQLHelper
           $query .= $pairs[$idx]->name . "=" . $pairs[$idx]->value . ",";
         }
         $query = substr($query, 0, strlen($query) - 1);
-       
+
         $pairs = self::getProperNameValues($where,$table);
         $condition = "";
-    	
+
         for ($idx = 0; $idx < count($pairs); $idx ++) {
           $condition .= $pairs[$idx]->name . "=" . $pairs[$idx]->value . " AND ";
         }
         $condition .= " TRUE";
-        
+
         $query       = "UPDATE $table SET $query WHERE $condition";
         if (empty($this->dbError)) {
             self::queryDb($query);
         }
     }
-    
+
     function deleteInfo($delInfo,$table) {
     	$pairs = self::getProperNameValues($delInfo,$table);
         $condition    = "";
@@ -360,7 +360,7 @@ class MYSQLHelper
             self::queryDb($query);
         }
     }
-  
+
     function getVarNameFromFields ($fieldName)/*Function to create variable name in the camel structure from the fields*/
 	{
         $strArray = explode("_", $fieldName);
