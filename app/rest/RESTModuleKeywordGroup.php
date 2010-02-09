@@ -99,6 +99,10 @@ class RESTModuleKeywordGroup extends RESTModule {
 		if ($this->checkGroupName($value,false)) {
 			$set = array();
 			$set['keywords'] = strtolower($_POST['data']);
+			$keywords = explode("\n",$set['keywords']);
+			if (count($keywords) > 10) {
+				return $this->setResult(false,"Maximun number of allowed keywords in a Mindspace is 10");
+			}
 			$condition['groupName'] = $value;
 			$condition['userId'] = $this->userInfo['userId'];
 			$this->dbHelper->updateInfo($set, $condition, $this->module_name);
