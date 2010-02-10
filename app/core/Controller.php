@@ -45,10 +45,10 @@ final class RouteConfig {
 		self::addConfig("profile_change_submit","template/core/manage_profile.phtml",true);
 		self::addConfig("result_analyzer","template/core/result_analyzer.phtml",true);
 		self::addConfig("result_analyzer_p","template/core/result_analyzer_p.phtml",true);
-		self::addConfig("domain_interests","template/core/domain_interests.phtml",true);
+		self::addConfig("watch_domains","template/core/domain_interests.phtml",true);
 		self::addConfig("historical_data","template/core/historical_data.phtml",true);
 		self::addConfig("manage_profile","template/core/manage_profile.phtml",true);
-		self::addConfig("manage_groups","template/core/manage_groups.phtml",true);
+		self::addConfig("mindspaces","template/core/manage_groups.phtml",true);
 		self::addConfig("scheduler","template/core/scheduler.phtml",true);
 		self::addConfig("logout","template/core/login.phtml",true);
 		self::addConfig("home","template/core/home.phtml",true);
@@ -91,9 +91,9 @@ class MenuItem {
  */
 $gMenuItems = array();
 $gMenuItems[] = new MenuItem("home","Home");
-$gMenuItems[] = new MenuItem("manage_groups","Manage Group");
+$gMenuItems[] = new MenuItem("mindspaces","Mindspaces");
 $gMenuItems[] = new MenuItem("result_analyzer","Result Analyzer");
-$gMenuItems[] = new MenuItem("domain_interests","Domain Interests");
+$gMenuItems[] = new MenuItem("watch_domains","Watch Domains");
 $gMenuItems[] = new MenuItem("historical_data","Historical Data");
 //$gMenuItems[] = new MenuItem("scheduler","Scheduler");
 $gMenuItems[] = new MenuItem("manage_profile","Manage Profile");
