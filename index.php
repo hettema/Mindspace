@@ -87,7 +87,7 @@ if ($_GET['go'] == 'new_account_submit') {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>SERP Aalayzer</title>
+<title>Mindspace SEO Tool</title>
 <link rel="stylesheet" type="text/css" href="template/css/analyzer.css" />
 <link rel="stylesheet" type="text/css" href="template/css/layout.css" />
 <link rel="stylesheet" type="text/css" href="template/3rdparty/yui/reset-fonts-grids/reset-fonts-grids.css" />
